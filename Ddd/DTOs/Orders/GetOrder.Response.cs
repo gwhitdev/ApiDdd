@@ -10,6 +10,6 @@ namespace Ddd.DTOs.Orders
         public string CustomerName { get; set; }
         public DateTime CreatedDate { get; set; }
         public string OrderStatus { get; set; }
-        public List<OrderItem> OrderItems = new List<OrderItem>();
+        public List<OrderItem> OrderItems { get; set; } = new();
     }
 }

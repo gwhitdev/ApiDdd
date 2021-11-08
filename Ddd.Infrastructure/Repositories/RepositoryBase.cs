@@ -35,6 +35,7 @@ namespace Ddd.Infrastructure.Repositories
         {
             return _dbSet.FirstOrDefaultAsync(expression);
         }
+        
 
         public Task<List<T>> ListAsync(Expression<Func<T, bool>> expression)
         {

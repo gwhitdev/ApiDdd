@@ -37,12 +37,12 @@ namespace Ddd.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromQuery]GetOrderRequest id)
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]GetOrderRequest order)
         {
-            _logger.LogInformation($"SEARCH ID: {id.Search}");
-            var order = await _orderService.GetOrderAsync(id);
-            return Ok(order);
+            _logger.LogInformation($"SEARCH ID: {order.Id}");
+            var foundOrder = await _orderService.GetOrderAsync(order);
+            return Ok(foundOrder);
         }
         
     }

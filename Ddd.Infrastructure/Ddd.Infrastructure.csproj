@@ -9,6 +9,7 @@
     <None Remove="Repositories\" />
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.EntityFrameworkCore.Relational" />
+    <None Remove="MediatR" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\" />
@@ -20,5 +21,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.11" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 </Project>

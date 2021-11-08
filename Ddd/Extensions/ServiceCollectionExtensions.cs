@@ -8,6 +8,8 @@ using Ddd.Core.Domain.Order;
 using Ddd.Infrastructure.Database;
 using Ddd.Services.Orders;
 using System.Reflection;
+using MediatR;
+using Ddd.Core.Domain.Order.Handlers;
 
 namespace Ddd.Extensions
 {
@@ -36,6 +38,10 @@ namespace Ddd.Extensions
         public static IServiceCollection AddBusinessServices(this IServiceCollection services)
         {
             return services.AddScoped<OrderService>();
+        }
+        public static IServiceCollection AddMediators(this IServiceCollection services)
+        {
+            return services.AddMediatR(typeof(OrderAddedEventHandler));
         }
     }
 }

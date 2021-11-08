@@ -20,7 +20,8 @@ namespace Ddd.Services.Orders
         {
             var order = new Order(
                     model.CustomerName,
-                    model.OrderStatus);
+                    model.OrderStatus,
+                    model.OrderItems);
 
             var repository = UnitOfWork.AsyncRepository<Order>();
             await repository.AddAsync(order);
@@ -31,7 +32,8 @@ namespace Ddd.Services.Orders
                 Id = order.Id,
                 CustomerName = order.CustomerName,
                 OrderStatus = order.OrderStatus,
-                CreatedDate = order.CreatedDate
+                CreatedDate = order.CreatedDate,
+                OrderItems = order.OrderItems.ToList()
             };
 
             return response;
@@ -40,14 +42,16 @@ namespace Ddd.Services.Orders
         public async Task<List<GetOrderResponse>> GetOrderAsync(GetOrderRequest request)
         {
             var respository = UnitOfWork.AsyncRepository<Order>();
-            var order = await respository.GetAsync(_ => _.Id == request.Search);
+            var orderItemsRepo = UnitOfWork.AsyncRepository<OrderItem>();
+            var order = await respository.GetAsync(_ => _.Id == request.Id);
+            var orderItems = await orderItemsRepo.ListAsync(_ => _.OrderId == request.Id);
 
             var orderDto = new GetOrderResponse()
             {
                 Id = order.Id,
                 CustomerName = order.CustomerName,
                 CreatedDate = order.CreatedDate,
-                OrderItems = order.OrderItems.ToList(),
+                OrderItems = orderItems,
                 OrderStatus = order.OrderStatus
             };
             List<GetOrderResponse> response = new();

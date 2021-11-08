@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ddd.Extensions;
-using Newtonsoft.Json;
+
 
 namespace Ddd
 {
@@ -28,6 +28,7 @@ namespace Ddd
             services.AddUnitOfWork();
             services.AddRepositories();
             services.AddBusinessServices();
+            services.AddMediators();
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());

@@ -1,5 +1,5 @@
 ﻿using Ddd.Core.Domain.Order;
-using System;
+using System.Collections.Generic;
 
 namespace Ddd.DTOs.Orders
 {
@@ -7,6 +7,6 @@ namespace Ddd.DTOs.Orders
     {
         public string CustomerName { get; set; }
         public string OrderStatus { get; set; }
-        public OrderItem OrderItem { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
     }
 }
