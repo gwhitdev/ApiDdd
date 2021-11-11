@@ -41,17 +41,15 @@ namespace Ddd.Services.Orders
 
         public async Task<List<GetOrderResponse>> GetOrderAsync(GetOrderRequest request)
         {
-            var respository = UnitOfWork.AsyncRepository<Order>();
-            var orderItemsRepo = UnitOfWork.AsyncRepository<OrderItem>();
-            var order = await respository.GetAsync(_ => _.Id == request.Id);
-            var orderItems = await orderItemsRepo.ListAsync(_ => _.OrderId == request.Id);
-
+            var repository = UnitOfWork.AsyncOrderRepository();
+            var order = await repository.GetOrderWithItemsAsync(request.Id);
+            //repository.ListAsync(_ => _.GetOrderItems());
             var orderDto = new GetOrderResponse()
             {
                 Id = order.Id,
                 CustomerName = order.CustomerName,
                 CreatedDate = order.CreatedDate,
-                OrderItems = orderItems,
+                OrderItems = order.OrderItems.ToList(),
                 OrderStatus = order.OrderStatus
             };
             List<GetOrderResponse> response = new();
@@ -59,6 +57,30 @@ namespace Ddd.Services.Orders
             
             return response;
         }
-        
+
+        public async Task<List<AddOrderItemResponse>> AddOrderItem(AddOrderItemRequest request)
+        {
+            _logger.LogInformation($"REQUEST SERVICE ORDER ID: {request.OrderId}");
+            var repository = UnitOfWork.AsyncRepository<Order>();
+            var order = await repository.GetAsync(_ => _.Id == request.OrderId);
+            try
+            {
+                order.AddOrderItem(request.OrderItem.ItemName);
+
+                await repository.UpdateAsync(order);
+                await UnitOfWork.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+            List<AddOrderItemResponse> response = new();
+            response.Add(new AddOrderItemResponse()
+            {
+                Order = order
+            });
+            return response;
+        }
     }
 }

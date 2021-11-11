@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Ddd.Core.Base;
 using System.Linq;
+using Ddd.Core.Domain.Audit;
 
 namespace Ddd.Infrastructure.Database
 {
@@ -47,6 +48,7 @@ namespace Ddd.Infrastructure.Database
         {
             modelBuilder.Entity<Order>().ToTable("Orders");
             modelBuilder.Entity<OrderItem>().ToTable("OrderItems");
+            modelBuilder.Entity<Audit>().ToTable("Audit");
         }
     }
 }

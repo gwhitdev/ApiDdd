@@ -11,7 +11,8 @@
     <None Remove="Base\" />
     <None Remove="MediatR" />
     <None Remove="Domain\Order\Events\" />
-    <None Remove="Domain\Order\Handlers\" />
+    <None Remove="Domain\Audit\" />
+    <None Remove="Domain\Audit\Events\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
@@ -19,7 +20,8 @@
     <Folder Include="Domain\Order\" />
     <Folder Include="Base\" />
     <Folder Include="Domain\Order\Events\" />
-    <Folder Include="Domain\Order\Handlers\" />
+    <Folder Include="Domain\Audit\" />
+    <Folder Include="Domain\Audit\Events\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR" Version="9.0.0" />

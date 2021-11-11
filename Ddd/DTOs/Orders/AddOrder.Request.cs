@@ -7,6 +7,6 @@ namespace Ddd.DTOs.Orders
     {
         public string CustomerName { get; set; }
         public string OrderStatus { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; } = new();
     }
 }

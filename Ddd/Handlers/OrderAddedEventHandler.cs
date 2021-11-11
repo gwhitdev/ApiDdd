@@ -5,7 +5,7 @@ using MediatR;
 using Ddd.Core.Domain.Order.Events;
 using System.Threading;
 
-namespace Ddd.Core.Domain.Order.Handlers
+namespace Ddd.Events.Handlers.Orders
 {
     public class OrderAddedEventHandler : INotificationHandler<NewOrderAddedEvent>
     {

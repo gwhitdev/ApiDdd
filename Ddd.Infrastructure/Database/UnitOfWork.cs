@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Ddd.Core.Base;
 using Ddd.Core.Interfaces;
 using Ddd.Infrastructure.Repositories;
+using Ddd.Core.Domain.Order;
 
 namespace Ddd.Infrastructure.Database
 {
@@ -23,6 +24,11 @@ namespace Ddd.Infrastructure.Database
         public Task<int> SaveChangesAsync()
         {
             return _dbContext.SaveChangesAsync();
+        }
+
+        public IOrderRepository AsyncOrderRepository()
+        {
+            return new OrderRepository(_dbContext);
         }
     }
 }

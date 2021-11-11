@@ -9,7 +9,9 @@ using Ddd.Infrastructure.Database;
 using Ddd.Services.Orders;
 using System.Reflection;
 using MediatR;
-using Ddd.Core.Domain.Order.Handlers;
+using Ddd.Events.Handlers.Orders;
+using Ddd.Events.Handlers.Audits;
+using Ddd.Services.Audits;
 
 namespace Ddd.Extensions
 {
@@ -37,11 +39,11 @@ namespace Ddd.Extensions
         }
         public static IServiceCollection AddBusinessServices(this IServiceCollection services)
         {
-            return services.AddScoped<OrderService>();
+            return services.AddScoped<OrderService>().AddScoped<AuditService>();
         }
         public static IServiceCollection AddMediators(this IServiceCollection services)
         {
-            return services.AddMediatR(typeof(OrderAddedEventHandler));
+            return services.AddMediatR(typeof(OrderAddedEventHandler)).AddMediatR(typeof(AuditAddedEventHandler));
         }
     }
 }

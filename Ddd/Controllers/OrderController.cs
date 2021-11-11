@@ -44,6 +44,18 @@ namespace Ddd.Controllers
             var foundOrder = await _orderService.GetOrderAsync(order);
             return Ok(foundOrder);
         }
+
+        [Route("/api/orders/{id}/items/add")]
+        [HttpPost]
+        public async Task<IActionResult> AddItem(int id, [FromBody] AddOrderItemRequest orderItem)
+        {
+            _logger.LogInformation($"ADD ITEM TO ORDER: {id}");
+            
+            orderItem.OrderId = id;
+            _logger.LogInformation($"ORDER ITEM: {orderItem.OrderId}, {orderItem.OrderItem}");
+            var newOrderItem = await _orderService.AddOrderItem(orderItem);
+            return Ok(newOrderItem);
+        }
         
     }
 }

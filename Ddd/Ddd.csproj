@@ -26,6 +26,9 @@
     <None Remove="Newtonsoft.Json" />
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Handlers\" />
+    <None Remove="Services\Audits\" />
+    <None Remove="DTOs\Audits\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11" />
@@ -46,5 +49,8 @@
     <Folder Include="DTOs\" />
     <Folder Include="DTOs\Orders\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Services\Audits\" />
+    <Folder Include="DTOs\Audits\" />
   </ItemGroup>
 </Project>
