@@ -15,7 +15,14 @@ namespace Ddd.Services.Orders
         {
             _logger = logger;
         }
-
+        private async Task AddToAudit(Order order)
+        {
+            order.AddToAudit();
+            var repository = UnitOfWork.AsyncOrderRepository();
+            await repository.UpdateAsync(order);
+            await UnitOfWork.SaveChangesAsync();
+            
+        }
         public async Task<AddOrderResponse> AddNewAsync(AddOrderRequest model)
         {
             var order = new Order(
@@ -27,6 +34,8 @@ namespace Ddd.Services.Orders
             await repository.AddAsync(order);
             await UnitOfWork.SaveChangesAsync();
 
+            await AddToAudit(order);
+            
             var response = new AddOrderResponse()
             {
                 Id = order.Id,

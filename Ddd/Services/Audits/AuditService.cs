@@ -28,7 +28,6 @@ namespace Ddd.Services.Audits
             var repository = UnitOfWork.AsyncRepository<Audit>();
             await repository.AddAsync(audit);
             await UnitOfWork.SaveChangesAsync();
-
         }
     }
 }

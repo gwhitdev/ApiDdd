@@ -4,16 +4,20 @@ using Ddd.Core.Base;
 using Ddd.Core.Interfaces;
 using Ddd.Infrastructure.Repositories;
 using Ddd.Core.Domain.Order;
+using Microsoft.Extensions.Logging;
 
 namespace Ddd.Infrastructure.Database
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly EfContext _dbContext;
-
-        public UnitOfWork(EfContext dbContext)
+        private ILogger<UnitOfWork> _logger;
+        private int ManyTimes = 0;
+        public UnitOfWork(EfContext dbContext, ILogger<UnitOfWork> logger)
         {
             _dbContext = dbContext;
+            _logger = logger;
+            
         }
 
         public IAsyncRepository<T> AsyncRepository<T>() where T : BaseEntity
@@ -21,9 +25,11 @@ namespace Ddd.Infrastructure.Database
             return new RepositoryBase<T>(_dbContext);
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            return _dbContext.SaveChangesAsync();
+            ManyTimes++;
+            _logger.LogInformation($"{ManyTimes} {_dbContext}");
+            return await _dbContext.SaveChangesAsync();
         }
 
         public IOrderRepository AsyncOrderRepository()

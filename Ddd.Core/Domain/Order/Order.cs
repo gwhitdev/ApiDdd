@@ -26,14 +26,17 @@ namespace Ddd.Core.Domain.Order
             var newOrderAddedEvent = new NewOrderAddedEvent(this);
             Events.Add(newOrderAddedEvent);
 
-            var newAuditEvent = new AddAuditEvent(new Audit.Audit("Order created",this.Id,$"{CustomerName} placed an order on {CreatedDate}"));
-            Events.Add(newAuditEvent);
+            
         }
         private Order()
         {
             _orderItems = new List<OrderItem>();
         }
-
+        public void AddToAudit()
+        {
+            var newAuditEvent = new AddAuditEvent(new Audit.Audit("Order created", this.Id, $"{CustomerName} placed an order on {CreatedDate}"));
+            Events.Add(newAuditEvent);
+        }
         public void AddOrderItem(string itemName)
         {
             _orderItems.Add(new OrderItem(itemName));

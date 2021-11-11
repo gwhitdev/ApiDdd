@@ -16,11 +16,13 @@ namespace Ddd.Events.Handlers.Orders
 
         public async Task Handle(NewOrderAddedEvent notification, CancellationToken cancellationToken)
         {
-            string path = @"/users/gareth/Desktop/Test.txt";
-            await using (StreamWriter sw = File.AppendText(path))
+            string path = @"C:\Users\gwhit\Desktop\Test.txt";
+            using (StreamWriter sw = File.AppendText(path))
             {
                 sw.WriteLine($"{notification.DateOccurred}: {notification.Order.CustomerName} ordered {notification.Order.OrderItems.Count} items");
             }
+
+           
         }
 
         

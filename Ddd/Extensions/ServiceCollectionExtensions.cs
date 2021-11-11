@@ -43,7 +43,10 @@ namespace Ddd.Extensions
         }
         public static IServiceCollection AddMediators(this IServiceCollection services)
         {
-            return services.AddMediatR(typeof(OrderAddedEventHandler)).AddMediatR(typeof(AuditAddedEventHandler));
+            return services.AddMediatR(
+                typeof(OrderAddedEventHandler),
+                typeof(AuditAddedEventHandler)
+                );
         }
     }
 }

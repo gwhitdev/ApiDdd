@@ -18,12 +18,11 @@ namespace Ddd.Events.Handlers.Audits
 
         public async Task Handle(AddAuditEvent notification, CancellationToken cancellationToken)
         {
-            var audit = new AddAuditRequest(
+            await _auditService.AddNewAuditAsync(new AddAuditRequest(
                 notification.Audit.EventName,
                 notification.Audit.EventId,
-                notification.Audit.EventDescription);
-
-            await _auditService.AddNewAuditAsync(audit);            
+                notification.Audit.EventDescription)).ConfigureAwait(true);
         }
+
     }
 }
