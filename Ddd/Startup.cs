@@ -29,9 +29,10 @@ namespace Ddd
             services.AddRepositories();
             services.AddBusinessServices();
             services.AddMediators();
-            services.AddCors(c =>
+            services.AddCors(options =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                options.AddPolicy("EnableCors", builder =>
+                    builder.SetIsOriginAllowed(origin => true).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             });
 
             services.AddSwaggerGen();

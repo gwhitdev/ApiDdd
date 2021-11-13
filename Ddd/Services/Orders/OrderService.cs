@@ -50,6 +50,7 @@ namespace Ddd.Services.Orders
 
         public async Task<List<GetOrderResponse>> GetOrderAsync(GetOrderRequest request)
         {
+            _logger.LogInformation($"{ request.Id}");
             var repository = UnitOfWork.AsyncOrderRepository();
             var order = await repository.GetOrderWithItemsAsync(request.Id);
             //repository.ListAsync(_ => _.GetOrderItems());
