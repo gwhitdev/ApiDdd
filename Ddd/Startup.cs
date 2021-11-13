@@ -29,9 +29,16 @@ namespace Ddd
             services.AddRepositories();
             services.AddBusinessServices();
             services.AddMediators();
-            services.AddCors(c =>
+            services.AddCors(options =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost:8080")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
             });
 
             services.AddSwaggerGen();
