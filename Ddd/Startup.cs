@@ -45,7 +45,7 @@ namespace Ddd
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
