@@ -29,17 +29,7 @@ namespace Ddd
             services.AddRepositories();
             services.AddBusinessServices();
             services.AddMediators();
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                builder =>
-                {
-                    builder.WithOrigins("https://localhost:8080")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-                });
-            });
+            services.AddCors();
 
             services.AddSwaggerGen();
 
@@ -52,7 +42,7 @@ namespace Ddd
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
 
             app.UseHttpsRedirection();
 
