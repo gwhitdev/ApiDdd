@@ -31,8 +31,14 @@ namespace Ddd
             services.AddMediators();
             services.AddCors(options =>
             {
-                options.AddPolicy("EnableCors", builder =>
-                    builder.SetIsOriginAllowed(origin => true).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost:8080")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
             });
 
             services.AddSwaggerGen();
@@ -46,7 +52,7 @@ namespace Ddd
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
